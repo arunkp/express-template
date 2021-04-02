@@ -4,16 +4,19 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
+    "build": "rm -r _static 2>/dev/null; nuxt build && nuxt export && mv dist _static && (rm _static/README.md || true)",
+    "start": "serve _static -l tcp://0.0.0.0:${PORT:-8080} -n",
     "generate": "nuxt generate",
     "lint": "yarn lint:js",
-    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore ."
+    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "export": "nuxt export",
+    "serve": "nuxt serve"
   },
   "dependencies": {
     "@nuxt/http": "latest",
     "express": "latest",
-    "nuxt": "latest"
+    "nuxt": "latest",
+    "serve": "^11.3.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^5.0.0",
